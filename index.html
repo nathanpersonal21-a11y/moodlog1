@@ -59,9 +59,9 @@ html,body{height:100%;width:100%;overflow:hidden;background:var(--bg);color:var(
 #moodcanvas{position:absolute;top:0;left:0;touch-action:none}
 .mood-dial-val{font-family:'DM Serif Display',serif;font-size:56px;line-height:1;color:var(--text);pointer-events:none;z-index:1;position:relative}
 .mood-hint{font-size:12px;color:var(--text3);text-align:center;line-height:1.6}
-/* Custom mood label input */
 .mood-label-wrap{width:100%;display:flex;flex-direction:column;gap:.4rem}
 .mood-label-hint{font-size:11px;font-family:'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--text3)}
+/* FIX: autocorrect restored on mood label input */
 #mood-label-input{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:100px;padding:.7rem 1.1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;outline:none;-webkit-appearance:none;user-select:text;-webkit-user-select:text;transition:border-color .15s;text-align:center}
 #mood-label-input:focus{border-color:var(--gold-dim)}
 #mood-label-input::placeholder{color:var(--text3)}
@@ -110,6 +110,7 @@ html,body{height:100%;width:100%;overflow:hidden;background:var(--bg);color:var(
 .habits-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:1rem 1.5rem;display:flex;flex-direction:column;gap:1rem}
 .habits-body::-webkit-scrollbar{display:none}
 .habit-add-row{display:flex;gap:.5rem}
+/* FIX: autocorrect restored on habit input */
 .habit-add-input{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:100px;padding:.65rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;-webkit-appearance:none;user-select:text;-webkit-user-select:text}
 .habit-add-input:focus{border-color:var(--gold-dim)}
 .habit-add-input::placeholder{color:var(--text3)}
@@ -257,7 +258,9 @@ audio{width:100%;border-radius:var(--radius);background:var(--bg2)}
     <div class="mood-hint">Drag the dial · tap Continue</div>
     <div class="mood-label-wrap">
       <div class="mood-label-hint">Label your mood</div>
-      <input type="text" id="mood-label-input" placeholder="e.g. anxious, calm, hopeful…" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="40">
+      <!-- FIX: autocorrect="on" autocapitalize="sentences" spellcheck="true" -->
+      <input type="text" id="mood-label-input" placeholder="e.g. anxious, calm, hopeful…"
+        autocomplete="off" autocorrect="on" autocapitalize="sentences" spellcheck="true" maxlength="40">
     </div>
     <button class="btn-primary" id="bcont">Continue →</button>
   </div>
@@ -304,7 +307,10 @@ audio{width:100%;border-radius:var(--radius);background:var(--bg2)}
       <div>
         <div class="habits-section-lbl">Add a habit</div>
         <div class="habit-add-row">
-          <input type="text" id="habit-input" class="habit-add-input" placeholder="e.g. Drink water, Exercise…" maxlength="50" autocomplete="off" autocorrect="off" spellcheck="false">
+          <!-- FIX: autocorrect="on" autocapitalize="sentences" spellcheck="true" -->
+          <input type="text" id="habit-input" class="habit-add-input"
+            placeholder="e.g. Drink water, Exercise…" maxlength="50"
+            autocomplete="off" autocorrect="on" autocapitalize="sentences" spellcheck="true">
           <button class="btn-icon" id="bhabitadd">+</button>
         </div>
       </div>
@@ -325,7 +331,9 @@ audio{width:100%;border-radius:var(--radius);background:var(--bg2)}
   <div class="compose-body">
     <div>
       <div class="field-label">Your thoughts</div>
-      <textarea id="jtxt" placeholder="What's on your mind…" autocomplete="off" autocorrect="on" autocapitalize="sentences" spellcheck="true"></textarea>
+      <!-- autocorrect="on" autocapitalize="sentences" spellcheck="true" — unchanged, already correct -->
+      <textarea id="jtxt" placeholder="What's on your mind…"
+        autocomplete="off" autocorrect="on" autocapitalize="sentences" spellcheck="true"></textarea>
     </div>
     <div>
       <div class="field-label">Location</div>
@@ -489,8 +497,8 @@ function setMood(score) {
 }
 function dialEvt(e) {
   const rect=canvas.getBoundingClientRect();
-  const cx=(( e.touches?e.touches[0].clientX:e.clientX)-rect.left)*(200/rect.width);
-  const cy=(( e.touches?e.touches[0].clientY:e.clientY)-rect.top)*(200/rect.height);
+  const cx=((e.touches?e.touches[0].clientX:e.clientX)-rect.left)*(200/rect.width);
+  const cy=((e.touches?e.touches[0].clientY:e.clientY)-rect.top)*(200/rect.height);
   setMood(angleToScore(cx,cy));
 }
 canvas.addEventListener('mousedown',e=>{dragging=true;dialEvt(e);});
@@ -637,7 +645,7 @@ async function uploadAudio(blob, filename) {
     const resp = await fetch(ST.scriptUrl,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({action:'uploadAudio',filename,mimeType:blob.type||'audio/webm',data:b64})
+      body: JSON.stringify({action:'uploadAudio',filename,mimeType:blob.type||'audio/mp4',data:b64})
     });
     const json = await resp.json();
     return json.driveUrl||null;
@@ -692,7 +700,6 @@ function viewEntry(idx) {
   const entry=ST.entries[idx]; if(!entry) return;
   document.getElementById('view-title').textContent=fmtDate(entry.ts);
   const body=document.getElementById('view-body'); body.innerHTML='';
-  // Mood bar
   const mb=document.createElement('div'); mb.className='view-mood-bar';
   mb.innerHTML=`<div class="view-mood-num ${moodCls(entry.mood)}">${entry.mood}</div>
     <div class="view-mood-info">
@@ -700,7 +707,6 @@ function viewEntry(idx) {
       <div class="view-mood-sub">${fmtDT(entry.ts)}</div>
     </div>`;
   body.appendChild(mb);
-  // Pills
   const pills=document.createElement('div'); pills.className='view-meta-row';
   pills.innerHTML=`<div class="meta-pill">${entry.type==='voice'?'🎙 Voice':'✍ Written'}</div>`;
   if(entry.loc) pills.innerHTML+=`<div class="meta-pill">📍 ${entry.loc.lat.toFixed(4)}, ${entry.loc.lon.toFixed(4)}</div>`;
@@ -793,76 +799,157 @@ function fmtTimer(s){return `${Math.floor(s/60)}:${(s%60).toString().padStart(2,
 
 document.getElementById('voice-orb').addEventListener('click',()=>{if(!ST.recording)startRec();});
 
-async function startRec(){
-  try {
-    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
-    ST.audioChunks=[]; ST.transcript='';
-    const mt=['audio/webm;codecs=opus','audio/webm','audio/ogg','audio/mp4'].find(t=>MediaRecorder.isTypeSupported(t));
-    ST.mediaRecorder=new MediaRecorder(stream, mt?{mimeType:mt}:{});
-    ST.mediaRecorder.ondataavailable=e=>{if(e.data.size>0)ST.audioChunks.push(e.data);};
-    ST.mediaRecorder.onstop=async()=>{
-      stream.getTracks().forEach(t=>t.stop());
-      ST.audioBlob=new Blob(ST.audioChunks,{type:ST.mediaRecorder.mimeType||'audio/webm'});
-      // Convert to base64 for persistent playback
-      const reader=new FileReader();
-      reader.onload=()=>{ST.audioB64=reader.result;};
-      reader.readAsDataURL(ST.audioBlob);
-    };
-    ST.mediaRecorder.start(1000);
-    ST.recording=true;
-    document.getElementById('voice-orb').classList.add('recording');
-    document.getElementById('voice-state').textContent='recording';
-    document.getElementById('bstoprec').style.display='block';
-    document.getElementById('transcript-box').style.display='block';
-    ST.timerSecs=0; clearInterval(ST.timerInterval);
-    ST.timerInterval=setInterval(()=>{ST.timerSecs++;document.getElementById('voice-timer').textContent=fmtTimer(ST.timerSecs);},1000);
-    recog=setupRecog();
-    if(recog){
-      let full='';
-      recog.onresult=e=>{
-        let interim='';
-        for(let i=e.resultIndex;i<e.results.length;i++){
-          const t=e.results[i][0].transcript;
-          if(e.results[i].isFinal){full+=t+' ';}else{interim+=t;}
-        }
-        ST.transcript=full.trim();
-        const el=document.getElementById('transcript-txt');
-        el.textContent=(full+interim)||'Listening…';
-        el.style.color=interim?'var(--text3)':'var(--text2)';
-        el.style.fontStyle=full?'normal':'italic';
-      };
-      recog.onerror=()=>{};
-      recog.onend=()=>{if(ST.recording)try{recog.start();}catch(e){}};
-      try{recog.start();}catch(e){}
-    } else {
-      document.getElementById('transcript-txt').textContent='Transcription unavailable on this device';
+// ── FIX: iOS-compatible recording ──
+// iOS Safari only supports audio/mp4. We probe for supported MIME types
+// in priority order: mp4 first (iOS), then webm variants (Android/desktop).
+// If MediaRecorder throws on construction we catch it and show a real error.
+function getSupportedMimeType() {
+  const types = [
+    'audio/mp4',
+    'audio/mp4;codecs=mp4a',
+    'audio/webm;codecs=opus',
+    'audio/webm',
+    'audio/ogg;codecs=opus',
+    'audio/ogg',
+  ];
+  // MediaRecorder.isTypeSupported may not exist on all browsers
+  if (typeof MediaRecorder === 'undefined') return '';
+  if (typeof MediaRecorder.isTypeSupported === 'function') {
+    for (const t of types) {
+      if (MediaRecorder.isTypeSupported(t)) return t;
     }
-  } catch(err){toast('Microphone access denied');console.error(err);}
+  }
+  return ''; // let browser pick default
+}
+
+async function startRec(){
+  // Update UI to show we're trying
+  document.getElementById('voice-state').textContent='starting…';
+
+  let stream;
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({audio:true});
+  } catch(err) {
+    toast('Microphone access denied');
+    document.getElementById('voice-state').textContent='tap to record';
+    return;
+  }
+
+  ST.audioChunks = [];
+  ST.transcript = '';
+
+  const mimeType = getSupportedMimeType();
+  let mr;
+  try {
+    mr = mimeType
+      ? new MediaRecorder(stream, { mimeType })
+      : new MediaRecorder(stream);
+  } catch(err) {
+    // Construction failed — try with no options as last resort
+    try { mr = new MediaRecorder(stream); }
+    catch(e2) {
+      stream.getTracks().forEach(t=>t.stop());
+      toast('Recording not supported on this device');
+      document.getElementById('voice-state').textContent='tap to record';
+      return;
+    }
+  }
+
+  ST.mediaRecorder = mr;
+
+  mr.ondataavailable = e => { if(e.data && e.data.size > 0) ST.audioChunks.push(e.data); };
+
+  mr.onstop = () => {
+    stream.getTracks().forEach(t=>t.stop());
+    if(ST.audioChunks.length === 0) return;
+    const finalMime = mr.mimeType || mimeType || 'audio/mp4';
+    ST.audioBlob = new Blob(ST.audioChunks, { type: finalMime });
+    const reader = new FileReader();
+    reader.onload = () => { ST.audioB64 = reader.result; };
+    reader.readAsDataURL(ST.audioBlob);
+  };
+
+  mr.onerror = (e) => {
+    toast('Recording error — please try again');
+    stopRec();
+  };
+
+  // timeslice of 1000ms ensures data arrives regularly
+  try {
+    mr.start(1000);
+  } catch(err) {
+    stream.getTracks().forEach(t=>t.stop());
+    toast('Could not start recording');
+    document.getElementById('voice-state').textContent='tap to record';
+    return;
+  }
+
+  ST.recording = true;
+  document.getElementById('voice-orb').classList.add('recording');
+  document.getElementById('voice-state').textContent = 'recording';
+  document.getElementById('bstoprec').style.display = 'block';
+  document.getElementById('transcript-box').style.display = 'block';
+
+  ST.timerSecs = 0;
+  clearInterval(ST.timerInterval);
+  ST.timerInterval = setInterval(()=>{
+    ST.timerSecs++;
+    document.getElementById('voice-timer').textContent = fmtTimer(ST.timerSecs);
+  }, 1000);
+
+  recog = setupRecog();
+  if(recog) {
+    let full = '';
+    recog.onresult = e => {
+      let interim = '';
+      for(let i=e.resultIndex; i<e.results.length; i++){
+        const t = e.results[i][0].transcript;
+        if(e.results[i].isFinal){ full += t + ' '; } else { interim += t; }
+      }
+      ST.transcript = full.trim();
+      const el = document.getElementById('transcript-txt');
+      el.textContent = (full + interim) || 'Listening…';
+      el.style.color = interim ? 'var(--text3)' : 'var(--text2)';
+      el.style.fontStyle = full ? 'normal' : 'italic';
+    };
+    recog.onerror = () => {};
+    recog.onend = () => { if(ST.recording) try{ recog.start(); }catch(e){} };
+    try { recog.start(); } catch(e){}
+  } else {
+    document.getElementById('transcript-txt').textContent = 'Transcription unavailable on this device';
+  }
 }
 
 function stopRec(){
-  ST.recording=false; clearInterval(ST.timerInterval);
-  if(recog){try{recog.stop();}catch(e){}recog=null;}
-  if(ST.mediaRecorder&&ST.mediaRecorder.state!=='inactive') ST.mediaRecorder.stop();
+  ST.recording = false;
+  clearInterval(ST.timerInterval);
+  if(recog){ try{ recog.stop(); }catch(e){} recog=null; }
+  if(ST.mediaRecorder && ST.mediaRecorder.state !== 'inactive'){
+    try{ ST.mediaRecorder.stop(); }catch(e){}
+  }
   document.getElementById('voice-orb').classList.remove('recording');
-  document.getElementById('voice-state').textContent='recorded';
-  document.getElementById('bstoprec').style.display='none';
-  document.getElementById('bsavev').style.display='block';
+  document.getElementById('voice-state').textContent = 'recorded';
+  document.getElementById('bstoprec').style.display = 'none';
+  document.getElementById('bsavev').style.display = 'block';
 }
-document.getElementById('bstoprec').addEventListener('click',stopRec);
+document.getElementById('bstoprec').addEventListener('click', stopRec);
 
 document.getElementById('bsavev').addEventListener('click',async()=>{
   const btn=document.getElementById('bsavev'); btn.disabled=true;
   const ssel=document.getElementById('ss-voice');
   ssel.textContent='Saving…'; ssel.className='save-status';
-  // Wait briefly for audioB64 to be ready
-  await new Promise(r=>setTimeout(r,300));
+  // Wait for FileReader to finish converting audio to base64
+  await new Promise(r=>setTimeout(r,400));
   const en={id:Date.now(),ts:Date.now(),type:'voice',mood:ST.mood,moodLabel:ST.moodLabel,text:'',transcript:ST.transcript||'',loc:ST.vloc||null,audioB64:ST.audioB64||null,driveUrl:null,synced:false};
   ST.entries.push(en); saveEntries(); renderEntries();
   if(ST.scriptUrl){
     if(ST.audioBlob){
       ssel.textContent='Uploading audio…';
-      try{const url=await uploadAudio(ST.audioBlob,`moodlog-${en.id}.webm`);if(url){en.driveUrl=url;saveEntries();}}catch(e){}
+      try{
+        const ext = (ST.audioBlob.type||'').includes('mp4') ? 'm4a' : 'webm';
+        const url=await uploadAudio(ST.audioBlob,`moodlog-${en.id}.${ext}`);
+        if(url){en.driveUrl=url;saveEntries();}
+      }catch(e){}
     }
     ssel.textContent='Syncing…';
     const ok=await syncEntry(en);
