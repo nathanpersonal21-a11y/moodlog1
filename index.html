@@ -619,13 +619,17 @@ document.getElementById('img-input').addEventListener('change',e=>{
 async function syncEntry(en){
   if(!ST.scriptUrl)return false;
   try{
-    await fetch(ST.scriptUrl,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+    const resp=await fetch(ST.scriptUrl,{
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
       body:JSON.stringify({action:'addEntry',_id:en.id,moodScore:en.mood,moodLabel:en.moodLabel||'',
         type:en.type,text:en.text||'',transcript:en.transcript||'',
         timestamp:new Date(en.ts).toISOString(),
         latitude:en.loc?en.loc.lat:'',longitude:en.loc?en.loc.lon:'',accuracy:en.loc?en.loc.acc:'',
-        driveUrl:en.driveUrl||'',imageUrl:en.imageUrl||''})});
-    return true;
+        driveUrl:en.driveUrl||'',imageUrl:en.imageUrl||''})
+    });
+    const json=await resp.json();
+    return json.success===true;
   }catch(e){return false;}
 }
 
@@ -633,14 +637,31 @@ async function syncEntry(en){
 async function uploadFileToDrive(blob,filename){
   if(!ST.scriptUrl||!blob)return null;
   try{
+    // Convert blob to base64
     const b64=await new Promise((res,rej)=>{
-      const r=new FileReader();r.onload=()=>res(r.result.split(',')[1]);r.onerror=rej;r.readAsDataURL(blob);
+      const r=new FileReader();
+      r.onload=()=>res(r.result.split(',')[1]);
+      r.onerror=rej;
+      r.readAsDataURL(blob);
     });
-    const resp=await fetch(ST.scriptUrl,{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({action:'uploadAudio',filename,mimeType:blob.type||'application/octet-stream',data:b64})});
+    const resp=await fetch(ST.scriptUrl,{
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify({action:'uploadAudio',filename,mimeType:blob.type||'application/octet-stream',data:b64})
+    });
     const json=await resp.json();
     return json.driveUrl||null;
-  }catch(e){return null;}
+  }catch(e){console.error('uploadFileToDrive failed:',e);return null;}
+}
+
+// Convert base64 data URL to blob for image upload
+function dataURLtoBlob(dataURL){
+  const parts=dataURL.split(',');
+  const mime=parts[0].match(/:(.*?);/)[1];
+  const binary=atob(parts[1]);
+  const arr=new Uint8Array(binary.length);
+  for(let i=0;i<binary.length;i++)arr[i]=binary.charCodeAt(i);
+  return new Blob([arr],{type:mime});
 }
 
 async function flushQueue(){
@@ -789,10 +810,11 @@ document.getElementById('bsavetxt').addEventListener('click',async()=>{
     if(ST.imgB64){
       ssel.textContent='Uploading photo…';
       try{
-        const imgBlob=await(await fetch(ST.imgB64)).blob();
+        const imgBlob=dataURLtoBlob(ST.imgB64);
         const url=await uploadFileToDrive(imgBlob,`moodlog-photo-${en.id}.jpg`);
         if(url){en.imageUrl=url;saveEntries();}
-      }catch(e){}
+        else{ssel.textContent='Photo upload failed — saving without photo URL';ssel.className='save-status err';await new Promise(r=>setTimeout(r,1200));}
+      }catch(e){console.error('Image upload error:',e);}
     }
     ssel.textContent='Syncing…';
     const ok=await syncEntry(en);
