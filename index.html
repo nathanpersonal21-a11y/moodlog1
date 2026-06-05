@@ -61,7 +61,6 @@ html,body{height:100%;width:100%;overflow:hidden;background:var(--bg);color:var(
 .mood-hint{font-size:12px;color:var(--text3);text-align:center;line-height:1.6}
 .mood-label-wrap{width:100%;display:flex;flex-direction:column;gap:.4rem}
 .mood-label-hint{font-size:11px;font-family:'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--text3)}
-/* FIX: autocorrect restored on mood label input */
 #mood-label-input{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:100px;padding:.7rem 1.1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;outline:none;-webkit-appearance:none;user-select:text;-webkit-user-select:text;transition:border-color .15s;text-align:center}
 #mood-label-input:focus{border-color:var(--gold-dim)}
 #mood-label-input::placeholder{color:var(--text3)}
@@ -83,6 +82,21 @@ html,body{height:100%;width:100%;overflow:hidden;background:var(--bg);color:var(
 .tab.active{color:var(--gold);border-bottom-color:var(--gold)}
 .tab-panel{display:none;flex:1;overflow:hidden;flex-direction:column}
 .tab-panel.active{display:flex}
+
+/* ── ON THIS DAY BANNER ── */
+.otd-banner{margin:1rem 1.5rem 0;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;flex-shrink:0}
+.otd-header{padding:.75rem 1rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+.otd-title{font-size:12px;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:.5rem}
+.otd-chevron{font-size:10px;color:var(--text3);transition:transform .2s}
+.otd-banner.open .otd-chevron{transform:rotate(180deg)}
+.otd-body{display:none;border-top:1px solid var(--border2)}
+.otd-banner.open .otd-body{display:block}
+.otd-entry{padding:.75rem 1rem;border-bottom:1px solid var(--border2);cursor:pointer}
+.otd-entry:last-child{border-bottom:none}
+.otd-entry:active{background:var(--bg3)}
+.otd-year{font-size:10px;font-family:'DM Mono',monospace;color:var(--text3);margin-bottom:.25rem}
+.otd-preview{font-size:13px;color:var(--text2);line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.otd-mood{font-size:11px;font-family:'DM Mono',monospace;margin-top:.2rem}
 
 /* ── ENTRIES ── */
 .entries-list{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0}
@@ -110,7 +124,6 @@ html,body{height:100%;width:100%;overflow:hidden;background:var(--bg);color:var(
 .habits-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:1rem 1.5rem;display:flex;flex-direction:column;gap:1rem}
 .habits-body::-webkit-scrollbar{display:none}
 .habit-add-row{display:flex;gap:.5rem}
-/* FIX: autocorrect restored on habit input */
 .habit-add-input{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:100px;padding:.65rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;-webkit-appearance:none;user-select:text;-webkit-user-select:text}
 .habit-add-input:focus{border-color:var(--gold-dim)}
 .habit-add-input::placeholder{color:var(--text3)}
@@ -141,6 +154,12 @@ textarea#jtxt::placeholder{color:var(--text3)}
 .loc-status{font-size:13px;color:var(--text3);display:flex;align-items:center;gap:.4rem}
 .loc-status.has-loc{color:var(--success)}
 .btn-small{font-size:12px;color:var(--gold);background:transparent;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;padding:.2rem .5rem}
+/* ── IMAGE ATTACH ── */
+.img-attach-row{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+.img-thumb{width:72px;height:72px;border-radius:12px;object-fit:cover;border:1px solid var(--border);flex-shrink:0}
+.btn-attach{display:flex;align-items:center;gap:.4rem;background:var(--bg2);border:1px solid var(--border);border-radius:100px;padding:.55rem 1rem;font-size:13px;color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s}
+.btn-attach:active{background:var(--bg3)}
+.btn-rm-img{font-size:11px;color:var(--danger);background:transparent;border:none;cursor:pointer;font-family:'DM Mono',monospace;margin-top:.25rem;display:block}
 .compose-footer{padding:1rem 1.5rem;border-top:1px solid var(--border2);flex-shrink:0}
 .save-status{text-align:center;font-size:12px;color:var(--text3);font-family:'DM Mono',monospace;margin-top:.75rem;min-height:18px;transition:color .3s}
 .save-status.ok{color:var(--success)}.save-status.err{color:var(--danger)}
@@ -182,6 +201,7 @@ textarea#jtxt::placeholder{color:var(--text3)}
 .view-mood-sub{font-size:12px;color:var(--text3);margin-top:.1rem}
 .view-section-title{font-size:11px;font-family:'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:.5rem}
 .view-text{font-size:16px;color:var(--text2);line-height:1.75;white-space:pre-wrap;user-select:text;-webkit-user-select:text}
+.view-img{width:100%;border-radius:var(--radius);border:1px solid var(--border2);display:block}
 .view-meta-row{display:flex;flex-wrap:wrap;gap:.5rem}
 .meta-pill{display:flex;align-items:center;gap:.35rem;background:var(--bg2);border:1px solid var(--border2);border-radius:100px;padding:.3rem .75rem;font-size:12px;color:var(--text3);font-family:'DM Mono',monospace}
 audio{width:100%;border-radius:var(--radius);background:var(--bg2)}
@@ -219,23 +239,14 @@ audio{width:100%;border-radius:var(--radius);background:var(--bg2)}
   <div class="lock-logo">Moodlog</div>
   <div class="lock-title">Enter your<br>passcode</div>
   <div class="lock-dots" id="lock-dots">
-    <div class="lock-dot" id="ld0"></div>
-    <div class="lock-dot" id="ld1"></div>
-    <div class="lock-dot" id="ld2"></div>
-    <div class="lock-dot" id="ld3"></div>
-    <div class="lock-dot" id="ld4"></div>
-    <div class="lock-dot" id="ld5"></div>
+    <div class="lock-dot" id="ld0"></div><div class="lock-dot" id="ld1"></div>
+    <div class="lock-dot" id="ld2"></div><div class="lock-dot" id="ld3"></div>
+    <div class="lock-dot" id="ld4"></div><div class="lock-dot" id="ld5"></div>
   </div>
   <div class="lock-pad" id="lock-pad">
-    <div class="lock-key" data-k="1">1</div>
-    <div class="lock-key" data-k="2">2</div>
-    <div class="lock-key" data-k="3">3</div>
-    <div class="lock-key" data-k="4">4</div>
-    <div class="lock-key" data-k="5">5</div>
-    <div class="lock-key" data-k="6">6</div>
-    <div class="lock-key" data-k="7">7</div>
-    <div class="lock-key" data-k="8">8</div>
-    <div class="lock-key" data-k="9">9</div>
+    <div class="lock-key" data-k="1">1</div><div class="lock-key" data-k="2">2</div><div class="lock-key" data-k="3">3</div>
+    <div class="lock-key" data-k="4">4</div><div class="lock-key" data-k="5">5</div><div class="lock-key" data-k="6">6</div>
+    <div class="lock-key" data-k="7">7</div><div class="lock-key" data-k="8">8</div><div class="lock-key" data-k="9">9</div>
     <div class="lock-key" data-k="clr" style="font-size:14px">CLR</div>
     <div class="lock-key" data-k="0">0</div>
     <div class="lock-key" data-k="del" style="font-size:20px">⌫</div>
@@ -258,7 +269,6 @@ audio{width:100%;border-radius:var(--radius);background:var(--bg2)}
     <div class="mood-hint">Drag the dial · tap Continue</div>
     <div class="mood-label-wrap">
       <div class="mood-label-hint">Label your mood</div>
-      <!-- FIX: autocorrect="on" autocapitalize="sentences" spellcheck="true" -->
       <input type="text" id="mood-label-input" placeholder="e.g. anxious, calm, hopeful…"
         autocomplete="off" autocorrect="on" autocapitalize="sentences" spellcheck="true" maxlength="40">
     </div>
@@ -284,6 +294,14 @@ audio{width:100%;border-radius:var(--radius);background:var(--bg2)}
   </div>
   <!-- JOURNAL TAB -->
   <div class="tab-panel active" id="tab-journal">
+    <!-- ON THIS DAY banner — injected by JS when relevant -->
+    <div id="otd-banner" class="otd-banner" style="display:none">
+      <div class="otd-header" id="otd-header">
+        <div class="otd-title">✦ <span>On this day</span></div>
+        <div class="otd-chevron" id="otd-chevron">▼</div>
+      </div>
+      <div class="otd-body" id="otd-body"></div>
+    </div>
     <div class="entries-list" id="entries-list">
       <div class="empty-state" id="empty-state">
         <div class="empty-icon">✦</div>
@@ -307,7 +325,6 @@ audio{width:100%;border-radius:var(--radius);background:var(--bg2)}
       <div>
         <div class="habits-section-lbl">Add a habit</div>
         <div class="habit-add-row">
-          <!-- FIX: autocorrect="on" autocapitalize="sentences" spellcheck="true" -->
           <input type="text" id="habit-input" class="habit-add-input"
             placeholder="e.g. Drink water, Exercise…" maxlength="50"
             autocomplete="off" autocorrect="on" autocapitalize="sentences" spellcheck="true">
@@ -331,9 +348,20 @@ audio{width:100%;border-radius:var(--radius);background:var(--bg2)}
   <div class="compose-body">
     <div>
       <div class="field-label">Your thoughts</div>
-      <!-- autocorrect="on" autocapitalize="sentences" spellcheck="true" — unchanged, already correct -->
       <textarea id="jtxt" placeholder="What's on your mind…"
         autocomplete="off" autocorrect="on" autocapitalize="sentences" spellcheck="true"></textarea>
+    </div>
+    <!-- IMAGE ATTACH -->
+    <div>
+      <div class="field-label">Photo</div>
+      <div class="img-attach-row" id="img-attach-row">
+        <button class="btn-attach" id="battach">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          Add photo
+        </button>
+        <!-- hidden file input -->
+        <input type="file" id="img-input" accept="image/*" style="display:none">
+      </div>
     </div>
     <div>
       <div class="field-label">Location</div>
@@ -357,9 +385,7 @@ audio{width:100%;border-radius:var(--radius);background:var(--bg2)}
   </div>
   <div class="voice-body">
     <div class="voice-orb-wrap">
-      <div class="voice-ring"></div>
-      <div class="voice-ring"></div>
-      <div class="voice-ring"></div>
+      <div class="voice-ring"></div><div class="voice-ring"></div><div class="voice-ring"></div>
       <div class="voice-orb" id="voice-orb">
         <div class="voice-mic-icon">🎙</div>
       </div>
@@ -413,33 +439,26 @@ audio{width:100%;border-radius:var(--radius);background:var(--bg2)}
 // ── STATE ──
 const PASSCODE = '671204';
 const ST = {
-  mood: 50,
-  moodLabel: '',
-  entries: [],
-  habits: [],
-  habitLog: {},
-  scriptUrl: '',
-  syncQueue: [],
-  loc: null,
-  vloc: null,
-  recording: false,
-  mediaRecorder: null,
-  audioChunks: [],
-  audioBlob: null,
-  audioB64: null,
+  mood: 50, moodLabel: '',
+  entries: [], habits: [], habitLog: {},
+  scriptUrl: '', syncQueue: [],
+  loc: null, vloc: null,
+  recording: false, mediaRecorder: null, audioChunks: [],
+  audioBlob: null,        // raw blob — NOT stored in localStorage
+  audioUploadUrl: null,   // Drive URL once uploaded
   transcript: '',
-  recognition: null,
-  timerInterval: null,
-  timerSecs: 0,
+  recognition: null, timerInterval: null, timerSecs: 0,
+  // image attach state
+  imgB64: null, imgMime: null,
 };
 
 // ── PERSISTENCE ──
 function load() {
   try {
-    ST.entries = JSON.parse(localStorage.getItem('ml_entries') || '[]');
-    ST.habits = JSON.parse(localStorage.getItem('ml_habits') || '[]');
-    ST.habitLog = JSON.parse(localStorage.getItem('ml_habit_log') || '{}');
-    ST.syncQueue = JSON.parse(localStorage.getItem('ml_queue') || '[]');
+    ST.entries   = JSON.parse(localStorage.getItem('ml_entries') || '[]');
+    ST.habits    = JSON.parse(localStorage.getItem('ml_habits')  || '[]');
+    ST.habitLog  = JSON.parse(localStorage.getItem('ml_habit_log') || '{}');
+    ST.syncQueue = JSON.parse(localStorage.getItem('ml_queue')   || '[]');
     ST.scriptUrl = localStorage.getItem('ml_script_url') || '';
     document.getElementById('set-url').value = ST.scriptUrl;
     const lastDate = localStorage.getItem('ml_last_mood_date');
@@ -451,51 +470,39 @@ function load() {
   } catch(e){}
 }
 function saveEntries() { localStorage.setItem('ml_entries', JSON.stringify(ST.entries)); }
-function saveHabits() {
-  localStorage.setItem('ml_habits', JSON.stringify(ST.habits));
-  localStorage.setItem('ml_habit_log', JSON.stringify(ST.habitLog));
-}
-function saveQueue() { localStorage.setItem('ml_queue', JSON.stringify(ST.syncQueue)); }
-function today() { return new Date().toDateString(); }
+function saveHabits()  { localStorage.setItem('ml_habits', JSON.stringify(ST.habits)); localStorage.setItem('ml_habit_log', JSON.stringify(ST.habitLog)); }
+function saveQueue()   { localStorage.setItem('ml_queue', JSON.stringify(ST.syncQueue)); }
+function today()       { return new Date().toDateString(); }
 
 // ── MOOD COLORS ──
 const PALETTE = ['#5c6bc0','#7986cb','#4db6ac','#81c784','#aed581','#dce775','#fff176','#ffb74d','#ff8a65','#c8a96e'];
-function moodIdx(score) { return Math.max(0, Math.min(9, Math.ceil(score / 10) - 1)); }
-function moodHex(score) { return PALETTE[moodIdx(score)]; }
-function moodCls(score) { return `mc-${moodIdx(score)+1}`; }
-function moodBgCls(score) { return `bg-mc-${moodIdx(score)+1}`; }
+function moodIdx(s) { return Math.max(0, Math.min(9, Math.ceil(s/10)-1)); }
+function moodHex(s) { return PALETTE[moodIdx(s)]; }
+function moodCls(s) { return `mc-${moodIdx(s)+1}`; }
+function moodBgCls(s) { return `bg-mc-${moodIdx(s)+1}`; }
 
 // ── DIAL ──
 const canvas = document.getElementById('moodcanvas');
 const ctx = canvas.getContext('2d');
-const CX=100, CY=100, R=82, SA=(3/4)*Math.PI, RA=(3/2)*Math.PI;
-let dragging = false;
-function drawDial(score) {
+const CX=100,CY=100,R=82,SA=(3/4)*Math.PI,RA=(3/2)*Math.PI;
+let dragging=false;
+function drawDial(score){
   ctx.clearRect(0,0,200,200);
-  const prog = score/100;
-  const ea = SA + RA*prog;
-  ctx.beginPath(); ctx.arc(CX,CY,R,SA,SA+RA);
-  ctx.strokeStyle='rgba(200,169,110,0.12)'; ctx.lineWidth=10; ctx.lineCap='round'; ctx.stroke();
-  ctx.beginPath(); ctx.arc(CX,CY,R,SA,ea);
-  ctx.strokeStyle=moodHex(score); ctx.lineWidth=10; ctx.lineCap='round'; ctx.stroke();
-  const tx=CX+R*Math.cos(ea), ty=CY+R*Math.sin(ea);
-  ctx.beginPath(); ctx.arc(tx,ty,7,0,Math.PI*2); ctx.fillStyle=moodHex(score); ctx.fill();
-  ctx.beginPath(); ctx.arc(tx,ty,3,0,Math.PI*2); ctx.fillStyle='#0d0d0f'; ctx.fill();
+  const ea=SA+RA*(score/100);
+  ctx.beginPath();ctx.arc(CX,CY,R,SA,SA+RA);ctx.strokeStyle='rgba(200,169,110,0.12)';ctx.lineWidth=10;ctx.lineCap='round';ctx.stroke();
+  ctx.beginPath();ctx.arc(CX,CY,R,SA,ea);ctx.strokeStyle=moodHex(score);ctx.lineWidth=10;ctx.lineCap='round';ctx.stroke();
+  const tx=CX+R*Math.cos(ea),ty=CY+R*Math.sin(ea);
+  ctx.beginPath();ctx.arc(tx,ty,7,0,Math.PI*2);ctx.fillStyle=moodHex(score);ctx.fill();
+  ctx.beginPath();ctx.arc(tx,ty,3,0,Math.PI*2);ctx.fillStyle='#0d0d0f';ctx.fill();
 }
-function angleToScore(cx,cy) {
-  let a = Math.atan2(cy-CY, cx-CX);
-  if(a<0) a+=Math.PI*2;
-  let rel = a-SA;
-  if(rel<0) rel+=Math.PI*2;
-  if(rel>RA+0.3) rel = rel<Math.PI ? 0 : RA;
+function angleToScore(cx,cy){
+  let a=Math.atan2(cy-CY,cx-CX);if(a<0)a+=Math.PI*2;
+  let rel=a-SA;if(rel<0)rel+=Math.PI*2;
+  if(rel>RA+0.3)rel=rel<Math.PI?0:RA;
   return Math.round((Math.min(RA,Math.max(0,rel))/RA)*100);
 }
-function setMood(score) {
-  score=Math.max(1,Math.min(100,score)); ST.mood=score;
-  document.getElementById('moodval').textContent=score;
-  drawDial(score);
-}
-function dialEvt(e) {
+function setMood(score){score=Math.max(1,Math.min(100,score));ST.mood=score;document.getElementById('moodval').textContent=score;drawDial(score);}
+function dialEvt(e){
   const rect=canvas.getBoundingClientRect();
   const cx=((e.touches?e.touches[0].clientX:e.clientX)-rect.left)*(200/rect.width);
   const cy=((e.touches?e.touches[0].clientY:e.clientY)-rect.top)*(200/rect.height);
@@ -509,69 +516,46 @@ document.addEventListener('mouseup',()=>{dragging=false;});
 document.addEventListener('touchend',()=>{dragging=false;});
 
 // ── SCREENS ──
-function ss(id) {
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
+function ss(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
 
 // ── HELPERS ──
-function fmtDate(ts) { return new Date(ts).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}); }
-function fmtTime(ts) { return new Date(ts).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}); }
-function fmtDT(ts) { return new Date(ts).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}); }
+function fmtDate(ts){return new Date(ts).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});}
+function fmtDT(ts){return new Date(ts).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});}
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function toast(msg,dur=2800) {
-  const el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show');
-  clearTimeout(toast._t); toast._t=setTimeout(()=>el.classList.remove('show'),dur);
-}
+function toast(msg,dur=2800){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(()=>el.classList.remove('show'),dur);}
 
 // ── LOCK ──
-let lockInput = '';
-function lockKey(k) {
-  const err = document.getElementById('lock-error');
-  err.textContent = '';
+let lockInput='';
+function lockKey(k){
+  const err=document.getElementById('lock-error');err.textContent='';
   if(k==='clr'){lockInput='';updateDots();return;}
   if(k==='del'){lockInput=lockInput.slice(0,-1);updateDots();return;}
-  if(lockInput.length>=6) return;
-  lockInput += k;
-  updateDots();
-  if(lockInput.length===6) {
+  if(lockInput.length>=6)return;
+  lockInput+=k;updateDots();
+  if(lockInput.length===6){
     setTimeout(()=>{
-      if(lockInput===PASSCODE) {
-        lockInput='';updateDots();
-        ss('smood');
-      } else {
+      if(lockInput===PASSCODE){lockInput='';updateDots();ss('smood');}
+      else{
         document.querySelectorAll('.lock-dot').forEach(d=>d.classList.add('err'));
-        setTimeout(()=>{
-          document.querySelectorAll('.lock-dot').forEach(d=>{d.classList.remove('err');d.classList.remove('filled');});
-          lockInput='';
-          err.textContent='Incorrect passcode';
-        },600);
+        setTimeout(()=>{document.querySelectorAll('.lock-dot').forEach(d=>{d.classList.remove('err','filled');});lockInput='';err.textContent='Incorrect passcode';},600);
       }
     },120);
   }
 }
-function updateDots() {
-  for(let i=0;i<6;i++){
-    const d=document.getElementById('ld'+i);
-    d.classList.toggle('filled',i<lockInput.length);
-  }
-}
-document.getElementById('lock-pad').addEventListener('click',e=>{
-  const k=e.target.closest('.lock-key');
-  if(k) lockKey(k.dataset.k);
-});
+function updateDots(){for(let i=0;i<6;i++)document.getElementById('ld'+i).classList.toggle('filled',i<lockInput.length);}
+document.getElementById('lock-pad').addEventListener('click',e=>{const k=e.target.closest('.lock-key');if(k)lockKey(k.dataset.k);});
 
 // ── MOOD CONTINUE ──
 document.getElementById('bcont').addEventListener('click',()=>{
-  ST.moodLabel = document.getElementById('mood-label-input').value.trim();
-  localStorage.setItem('ml_last_mood_date', today());
-  localStorage.setItem('ml_last_mood_score', ST.mood);
-  localStorage.setItem('ml_last_mood_label', ST.moodLabel);
-  document.getElementById('pillsc').textContent = ST.mood;
-  document.getElementById('pilllbl').textContent = ST.moodLabel || 'today';
+  ST.moodLabel=document.getElementById('mood-label-input').value.trim();
+  localStorage.setItem('ml_last_mood_date',today());
+  localStorage.setItem('ml_last_mood_score',ST.mood);
+  localStorage.setItem('ml_last_mood_label',ST.moodLabel);
+  document.getElementById('pillsc').textContent=ST.mood;
+  document.getElementById('pilllbl').textContent=ST.moodLabel||'today';
   renderEntries();
   ss('smain');
-  if(navigator.onLine) flushQueue();
+  if(navigator.onLine)flushQueue();
 });
 
 // ── TABS ──
@@ -585,110 +569,151 @@ document.querySelectorAll('.tab').forEach(t=>{
 });
 
 // ── LOCATION ──
-function getLocation(cb) {
+function getLocation(cb){
   if(!navigator.geolocation){cb(null,'Not supported');return;}
-  navigator.geolocation.getCurrentPosition(
-    p=>cb({lat:p.coords.latitude,lon:p.coords.longitude,acc:Math.round(p.coords.accuracy)}),
-    e=>cb(null,e.message),{timeout:10000}
-  );
+  navigator.geolocation.getCurrentPosition(p=>cb({lat:p.coords.latitude,lon:p.coords.longitude,acc:Math.round(p.coords.accuracy)}),e=>cb(null,e.message),{timeout:10000});
 }
-function setupLoc(btnId,statusId,txtId,stateKey) {
+function setupLoc(btnId,statusId,txtId,stateKey){
   document.getElementById(btnId).addEventListener('click',()=>{
     document.getElementById(txtId).textContent='Locating…';
     getLocation((loc,err)=>{
-      if(loc){
-        ST[stateKey]=loc;
-        document.getElementById(statusId).classList.add('has-loc');
-        document.getElementById(txtId).textContent=`${loc.lat.toFixed(4)}, ${loc.lon.toFixed(4)}`;
-        document.getElementById(btnId).textContent='Update';
-      } else {
-        document.getElementById(txtId).textContent='Unavailable';
-        toast('Location: '+(err||'unknown'));
-      }
+      if(loc){ST[stateKey]=loc;document.getElementById(statusId).classList.add('has-loc');document.getElementById(txtId).textContent=`${loc.lat.toFixed(4)}, ${loc.lon.toFixed(4)}`;document.getElementById(btnId).textContent='Update';}
+      else{document.getElementById(txtId).textContent='Unavailable';toast('Location: '+(err||'unknown'));}
     });
   });
 }
 setupLoc('bgetloc','loc-status','loc-txt','loc');
 setupLoc('bvgetloc','vloc-status','vloc-txt','vloc');
 
+// ── IMAGE ATTACH ──
+document.getElementById('battach').addEventListener('click',()=>document.getElementById('img-input').click());
+document.getElementById('img-input').addEventListener('change',e=>{
+  const file=e.target.files[0];
+  if(!file)return;
+  // Compress: draw onto canvas at max 1200px, export as JPEG 0.75
+  const img=new Image();
+  const url=URL.createObjectURL(file);
+  img.onload=()=>{
+    URL.revokeObjectURL(url);
+    const MAX=1200;
+    let w=img.width,h=img.height;
+    if(w>MAX){h=Math.round(h*(MAX/w));w=MAX;}
+    if(h>MAX){w=Math.round(w*(MAX/h));h=MAX;}
+    const c=document.createElement('canvas');c.width=w;c.height=h;
+    c.getContext('2d').drawImage(img,0,0,w,h);
+    const b64=c.toDataURL('image/jpeg',0.75);
+    ST.imgB64=b64;ST.imgMime='image/jpeg';
+    // Show thumbnail
+    const row=document.getElementById('img-attach-row');
+    row.querySelectorAll('.img-thumb,.btn-rm-img').forEach(el=>el.remove());
+    const thumb=document.createElement('img');thumb.className='img-thumb';thumb.src=b64;
+    const rm=document.createElement('button');rm.className='btn-rm-img';rm.textContent='Remove';
+    rm.addEventListener('click',()=>{ST.imgB64=null;ST.imgMime=null;thumb.remove();rm.remove();document.getElementById('img-input').value='';});
+    row.appendChild(thumb);row.appendChild(rm);
+  };
+  img.src=url;
+  e.target.value=''; // reset so same file can be reselected
+});
+
 // ── SYNC ──
-async function syncEntry(en) {
-  if(!ST.scriptUrl) return false;
-  try {
-    await fetch(ST.scriptUrl,{
-      method:'POST', mode:'no-cors',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        action:'addEntry',
-        _id: en.id,
-        moodScore: en.mood,
-        moodLabel: en.moodLabel || '',
-        type: en.type,
-        text: en.text||'',
-        transcript: en.transcript||'',
-        timestamp: new Date(en.ts).toISOString(),
-        latitude: en.loc?en.loc.lat:'',
-        longitude: en.loc?en.loc.lon:'',
-        accuracy: en.loc?en.loc.acc:'',
-        driveUrl: en.driveUrl||''
-      })
-    });
+async function syncEntry(en){
+  if(!ST.scriptUrl)return false;
+  try{
+    await fetch(ST.scriptUrl,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'addEntry',_id:en.id,moodScore:en.mood,moodLabel:en.moodLabel||'',
+        type:en.type,text:en.text||'',transcript:en.transcript||'',
+        timestamp:new Date(en.ts).toISOString(),
+        latitude:en.loc?en.loc.lat:'',longitude:en.loc?en.loc.lon:'',accuracy:en.loc?en.loc.acc:'',
+        driveUrl:en.driveUrl||''})});
     return true;
-  } catch(e){ return false; }
+  }catch(e){return false;}
 }
-async function uploadAudio(blob, filename) {
-  if(!ST.scriptUrl||!blob) return null;
-  try {
-    const b64 = await new Promise((res,rej)=>{
-      const r=new FileReader(); r.onload=()=>res(r.result.split(',')[1]); r.onerror=rej; r.readAsDataURL(blob);
+
+// Upload file (audio or image) to Drive via Apps Script
+async function uploadFileToDrive(blob,filename){
+  if(!ST.scriptUrl||!blob)return null;
+  try{
+    const b64=await new Promise((res,rej)=>{
+      const r=new FileReader();r.onload=()=>res(r.result.split(',')[1]);r.onerror=rej;r.readAsDataURL(blob);
     });
-    const resp = await fetch(ST.scriptUrl,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({action:'uploadAudio',filename,mimeType:blob.type||'audio/mp4',data:b64})
-    });
-    const json = await resp.json();
+    const resp=await fetch(ST.scriptUrl,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'uploadAudio',filename,mimeType:blob.type||'application/octet-stream',data:b64})});
+    const json=await resp.json();
     return json.driveUrl||null;
-  } catch(e){ return null; }
+  }catch(e){return null;}
 }
-async function flushQueue() {
-  if(!ST.scriptUrl||ST.syncQueue.length===0) return;
-  const pending = [...ST.syncQueue];
-  for(const en of pending) {
-    const ok = await syncEntry(en);
-    if(ok) {
-      ST.syncQueue = ST.syncQueue.filter(x=>x.id!==en.id);
-      saveQueue();
-      const entry = ST.entries.find(e=>e.id===en.id);
+
+async function flushQueue(){
+  if(!ST.scriptUrl||ST.syncQueue.length===0)return;
+  const pending=[...ST.syncQueue];
+  for(const en of pending){
+    const ok=await syncEntry(en);
+    if(ok){
+      ST.syncQueue=ST.syncQueue.filter(x=>x.id!==en.id);saveQueue();
+      const entry=ST.entries.find(e=>e.id===en.id);
       if(entry){entry.synced=true;saveEntries();}
       renderEntries();
     }
   }
 }
-window.addEventListener('online',()=>{ toast('Back online — syncing…'); flushQueue(); });
+window.addEventListener('online',()=>{toast('Back online — syncing…');flushQueue();});
+
+// ── ON THIS DAY ──
+function renderOnThisDay(){
+  const banner=document.getElementById('otd-banner');
+  const now=new Date();
+  const mm=now.getMonth(),dd=now.getDate();
+  // Find entries from same month+day but a different calendar date (any prior year OR same year earlier)
+  const matches=ST.entries.filter(e=>{
+    const d=new Date(e.ts);
+    return d.getMonth()===mm && d.getDate()===dd && d.toDateString()!==now.toDateString();
+  });
+  if(matches.length===0){banner.style.display='none';return;}
+  banner.style.display='block';
+  const body=document.getElementById('otd-body');body.innerHTML='';
+  // Group by year
+  const byYear={};
+  matches.forEach(e=>{const y=new Date(e.ts).getFullYear();(byYear[y]=byYear[y]||[]).push(e);});
+  Object.keys(byYear).sort((a,b)=>b-a).forEach(yr=>{
+    byYear[yr].forEach(e=>{
+      const div=document.createElement('div');div.className='otd-entry';
+      const preview=e.transcript||e.text||'(voice note)';
+      div.innerHTML=`<div class="otd-year">${yr} · ${fmtDT(e.ts)}</div>
+        <div class="otd-preview">${esc(preview)}</div>
+        <div class="otd-mood ${moodCls(e.mood)}">${e.mood}${e.moodLabel?' · '+esc(e.moodLabel):''}</div>`;
+      div.addEventListener('click',()=>viewEntry(ST.entries.indexOf(e)));
+      body.appendChild(div);
+    });
+  });
+  // Toggle open/close
+  document.getElementById('otd-header').onclick=()=>{
+    banner.classList.toggle('open');
+  };
+}
 
 // ── ENTRIES ──
-function renderEntries() {
-  const list = document.getElementById('entries-list');
-  const empty = document.getElementById('empty-state');
+function renderEntries(){
+  const list=document.getElementById('entries-list');
+  const empty=document.getElementById('empty-state');
   list.querySelectorAll('.entry-item').forEach(e=>e.remove());
+  renderOnThisDay();
   if(ST.entries.length===0){empty.style.display='flex';return;}
   empty.style.display='none';
   [...ST.entries].reverse().forEach((entry,idx)=>{
-    const realIdx = ST.entries.length-1-idx;
-    const div = document.createElement('div');
-    div.className='entry-item';
-    const preview = entry.transcript||entry.text||'(voice note)';
-    const pending = (!entry.synced && ST.syncQueue.find(q=>q.id===entry.id));
+    const realIdx=ST.entries.length-1-idx;
+    const div=document.createElement('div');div.className='entry-item';
+    const preview=entry.transcript||entry.text||'(voice note)';
+    const pending=(!entry.synced&&ST.syncQueue.find(q=>q.id===entry.id));
+    const hasImg=entry.imgB64?'🖼 ':'';
     div.innerHTML=`
       <div class="entry-type-icon">${entry.type==='voice'?'🎙':'✍'}</div>
       <div class="entry-content">
         <div class="entry-meta">
           <div class="entry-time">${fmtDT(entry.ts)}</div>
           <div class="entry-mood-dot ${moodBgCls(entry.mood)}" style="width:6px;height:6px;border-radius:50%;flex-shrink:0"></div>
-          <div class="entry-mood-score ${moodCls(entry.mood)}" style="font-family:'DM Mono',monospace;font-size:11px">${entry.mood}${entry.moodLabel?' · '+esc(entry.moodLabel):''}</div>
+          <div class="entry-mood-score ${moodCls(entry.mood)}">${entry.mood}${entry.moodLabel?' · '+esc(entry.moodLabel):''}</div>
         </div>
-        <div class="entry-preview">${esc(preview)}</div>
+        <div class="entry-preview">${hasImg}${esc(preview)}</div>
         ${pending?'<div class="entry-pending">⏳ pending sync</div>':''}
       </div>`;
     div.addEventListener('click',()=>viewEntry(realIdx));
@@ -696,40 +721,35 @@ function renderEntries() {
   });
 }
 
-function viewEntry(idx) {
-  const entry=ST.entries[idx]; if(!entry) return;
+function viewEntry(idx){
+  const entry=ST.entries[idx];if(!entry)return;
   document.getElementById('view-title').textContent=fmtDate(entry.ts);
-  const body=document.getElementById('view-body'); body.innerHTML='';
-  const mb=document.createElement('div'); mb.className='view-mood-bar';
+  const body=document.getElementById('view-body');body.innerHTML='';
+  // Mood bar
+  const mb=document.createElement('div');mb.className='view-mood-bar';
   mb.innerHTML=`<div class="view-mood-num ${moodCls(entry.mood)}">${entry.mood}</div>
-    <div class="view-mood-info">
-      <div class="view-mood-name">${entry.moodLabel||'—'}</div>
-      <div class="view-mood-sub">${fmtDT(entry.ts)}</div>
-    </div>`;
+    <div class="view-mood-info"><div class="view-mood-name">${entry.moodLabel||'—'}</div><div class="view-mood-sub">${fmtDT(entry.ts)}</div></div>`;
   body.appendChild(mb);
-  const pills=document.createElement('div'); pills.className='view-meta-row';
+  // Pills
+  const pills=document.createElement('div');pills.className='view-meta-row';
   pills.innerHTML=`<div class="meta-pill">${entry.type==='voice'?'🎙 Voice':'✍ Written'}</div>`;
-  if(entry.loc) pills.innerHTML+=`<div class="meta-pill">📍 ${entry.loc.lat.toFixed(4)}, ${entry.loc.lon.toFixed(4)}</div>`;
-  if(entry.synced) pills.innerHTML+=`<div class="meta-pill" style="color:var(--success)">✓ Synced</div>`;
+  if(entry.loc)pills.innerHTML+=`<div class="meta-pill">📍 ${entry.loc.lat.toFixed(4)}, ${entry.loc.lon.toFixed(4)}</div>`;
+  if(entry.synced)pills.innerHTML+=`<div class="meta-pill" style="color:var(--success)">✓ Synced</div>`;
   body.appendChild(pills);
-  if(entry.text){
+  // Text
+  if(entry.text){const s=document.createElement('div');s.innerHTML=`<div class="view-section-title">Written text</div><div class="view-text">${esc(entry.text)}</div>`;body.appendChild(s);}
+  // Transcript
+  if(entry.transcript&&entry.type==='voice'){const s=document.createElement('div');s.innerHTML=`<div class="view-section-title">Transcript</div><div class="view-text">${esc(entry.transcript)}</div>`;body.appendChild(s);}
+  // Image (stored locally as b64)
+  if(entry.imgB64){
     const s=document.createElement('div');
-    s.innerHTML=`<div class="view-section-title">Written text</div><div class="view-text">${esc(entry.text)}</div>`;
+    s.innerHTML=`<div class="view-section-title">Photo</div><img class="view-img" src="${entry.imgB64}" alt="attached photo">`;
     body.appendChild(s);
   }
-  if(entry.transcript&&entry.type==='voice'){
-    const s=document.createElement('div');
-    s.innerHTML=`<div class="view-section-title">Transcript</div><div class="view-text">${esc(entry.transcript)}</div>`;
-    body.appendChild(s);
-  }
-  if(entry.audioB64){
-    const s=document.createElement('div');
-    s.innerHTML=`<div class="view-section-title">Recording</div><audio controls src="${entry.audioB64}"></audio>`;
-    body.appendChild(s);
-  }
+  // Drive audio link (no local b64 audio)
   if(entry.driveUrl){
     const s=document.createElement('div');
-    s.innerHTML=`<div class="view-section-title">Drive audio</div><a href="${entry.driveUrl}" target="_blank" style="color:var(--gold);font-size:14px;font-family:'DM Mono',monospace;word-break:break-all">Open in Drive ↗</a>`;
+    s.innerHTML=`<div class="view-section-title">${entry.type==='voice'?'Recording':'Audio'}</div><a href="${entry.driveUrl}" target="_blank" style="color:var(--gold);font-size:14px;font-family:'DM Mono',monospace;word-break:break-all">Open in Drive ↗</a>`;
     body.appendChild(s);
   }
   ss('sview');
@@ -737,13 +757,17 @@ function viewEntry(idx) {
 
 // ── TEXT ENTRY ──
 document.getElementById('btxtentry').addEventListener('click',()=>{
-  ST.loc=null;
+  ST.loc=null;ST.imgB64=null;ST.imgMime=null;
   document.getElementById('jtxt').value='';
   document.getElementById('loc-status').classList.remove('has-loc');
   document.getElementById('loc-txt').textContent='Not attached';
   document.getElementById('bgetloc').textContent='Add';
   document.getElementById('ss-txt').textContent='';
   document.getElementById('ss-txt').className='save-status';
+  // Reset image attach row
+  const row=document.getElementById('img-attach-row');
+  row.querySelectorAll('.img-thumb,.btn-rm-img').forEach(el=>el.remove());
+  document.getElementById('img-input').value='';
   ss('scompose');
   setTimeout(()=>document.getElementById('jtxt').focus(),300);
 });
@@ -751,20 +775,30 @@ document.getElementById('bcompback').addEventListener('click',()=>ss('smain'));
 
 document.getElementById('bsavetxt').addEventListener('click',async()=>{
   const text=document.getElementById('jtxt').value.trim();
-  if(!text){toast('Write something first');return;}
-  const btn=document.getElementById('bsavetxt'); btn.disabled=true;
+  if(!text&&!ST.imgB64){toast('Write something or attach a photo first');return;}
+  const btn=document.getElementById('bsavetxt');btn.disabled=true;
   const ssel=document.getElementById('ss-txt');
-  ssel.textContent='Saving…'; ssel.className='save-status';
-  const en={id:Date.now(),ts:Date.now(),type:'text',mood:ST.mood,moodLabel:ST.moodLabel,text,loc:ST.loc||null,synced:false};
-  ST.entries.push(en); saveEntries(); renderEntries();
-  if(ST.scriptUrl) {
+  ssel.textContent='Saving…';ssel.className='save-status';
+  const en={id:Date.now(),ts:Date.now(),type:'text',mood:ST.mood,moodLabel:ST.moodLabel,
+    text,loc:ST.loc||null,imgB64:ST.imgB64||null,driveUrl:null,synced:false};
+  ST.entries.push(en);saveEntries();renderEntries();
+  if(ST.scriptUrl){
+    // Upload image to Drive if attached
+    if(ST.imgB64){
+      ssel.textContent='Uploading photo…';
+      try{
+        const imgBlob=await(await fetch(ST.imgB64)).blob();
+        const url=await uploadFileToDrive(imgBlob,`moodlog-photo-${en.id}.jpg`);
+        if(url){en.driveUrl=url;saveEntries();}
+      }catch(e){}
+    }
     ssel.textContent='Syncing…';
     const ok=await syncEntry(en);
     if(ok){en.synced=true;saveEntries();renderEntries();ssel.textContent='✓ Saved to Google Sheets';ssel.className='save-status ok';}
-    else{ST.syncQueue.push({...en});saveQueue();ssel.textContent='⚠ Saved locally — will sync when online';ssel.className='save-status err';}
-  } else {
-    ST.syncQueue.push({...en}); saveQueue();
-    ssel.textContent='✓ Saved locally'; ssel.className='save-status ok';
+    else{ST.syncQueue.push({...en,imgB64:null});saveQueue();ssel.textContent='⚠ Saved locally — will sync when online';ssel.className='save-status err';}
+  }else{
+    ST.syncQueue.push({...en,imgB64:null});saveQueue();
+    ssel.textContent='✓ Saved locally';ssel.className='save-status ok';
   }
   btn.disabled=false;
   setTimeout(()=>ss('smain'),1600);
@@ -772,7 +806,7 @@ document.getElementById('bsavetxt').addEventListener('click',async()=>{
 
 // ── VOICE ENTRY ──
 document.getElementById('bvoiceentry').addEventListener('click',()=>{
-  ST.vloc=null; ST.audioBlob=null; ST.audioB64=null; ST.audioChunks=[]; ST.transcript=''; ST.timerSecs=0;
+  ST.vloc=null;ST.audioBlob=null;ST.audioUploadUrl=null;ST.audioChunks=[];ST.transcript='';ST.timerSecs=0;
   document.getElementById('vloc-status').classList.remove('has-loc');
   document.getElementById('vloc-txt').textContent='No location';
   document.getElementById('bvgetloc').textContent='Add';
@@ -792,235 +826,172 @@ document.getElementById('bvoiceback').addEventListener('click',()=>{stopRec();ss
 let recog=null;
 function setupRecog(){
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR) return null;
-  const r=new SR(); r.continuous=true; r.interimResults=true; r.lang='en-US'; return r;
+  if(!SR)return null;
+  const r=new SR();r.continuous=true;r.interimResults=true;r.lang='en-US';return r;
 }
 function fmtTimer(s){return `${Math.floor(s/60)}:${(s%60).toString().padStart(2,'0')}`;}
 
 document.getElementById('voice-orb').addEventListener('click',()=>{if(!ST.recording)startRec();});
 
-// ── FIX: iOS-compatible recording ──
-// iOS Safari only supports audio/mp4. We probe for supported MIME types
-// in priority order: mp4 first (iOS), then webm variants (Android/desktop).
-// If MediaRecorder throws on construction we catch it and show a real error.
-function getSupportedMimeType() {
-  const types = [
-    'audio/mp4',
-    'audio/mp4;codecs=mp4a',
-    'audio/webm;codecs=opus',
-    'audio/webm',
-    'audio/ogg;codecs=opus',
-    'audio/ogg',
-  ];
-  // MediaRecorder.isTypeSupported may not exist on all browsers
-  if (typeof MediaRecorder === 'undefined') return '';
-  if (typeof MediaRecorder.isTypeSupported === 'function') {
-    for (const t of types) {
-      if (MediaRecorder.isTypeSupported(t)) return t;
-    }
+function getSupportedMimeType(){
+  const types=['audio/mp4','audio/mp4;codecs=mp4a','audio/webm;codecs=opus','audio/webm','audio/ogg;codecs=opus','audio/ogg'];
+  if(typeof MediaRecorder==='undefined')return'';
+  if(typeof MediaRecorder.isTypeSupported==='function'){
+    for(const t of types)if(MediaRecorder.isTypeSupported(t))return t;
   }
-  return ''; // let browser pick default
+  return'';
 }
 
 async function startRec(){
-  // Update UI to show we're trying
   document.getElementById('voice-state').textContent='starting…';
-
   let stream;
-  try {
-    stream = await navigator.mediaDevices.getUserMedia({audio:true});
-  } catch(err) {
-    toast('Microphone access denied');
-    document.getElementById('voice-state').textContent='tap to record';
-    return;
-  }
+  try{stream=await navigator.mediaDevices.getUserMedia({audio:true});}
+  catch(err){toast('Microphone access denied');document.getElementById('voice-state').textContent='tap to record';return;}
 
-  ST.audioChunks = [];
-  ST.transcript = '';
-
-  const mimeType = getSupportedMimeType();
+  ST.audioChunks=[];ST.transcript='';
+  const mimeType=getSupportedMimeType();
   let mr;
-  try {
-    mr = mimeType
-      ? new MediaRecorder(stream, { mimeType })
-      : new MediaRecorder(stream);
-  } catch(err) {
-    // Construction failed — try with no options as last resort
-    try { mr = new MediaRecorder(stream); }
-    catch(e2) {
-      stream.getTracks().forEach(t=>t.stop());
-      toast('Recording not supported on this device');
-      document.getElementById('voice-state').textContent='tap to record';
-      return;
-    }
+  try{mr=mimeType?new MediaRecorder(stream,{mimeType}):new MediaRecorder(stream);}
+  catch(err){
+    try{mr=new MediaRecorder(stream);}
+    catch(e2){stream.getTracks().forEach(t=>t.stop());toast('Recording not supported on this device');document.getElementById('voice-state').textContent='tap to record';return;}
   }
 
-  ST.mediaRecorder = mr;
+  ST.mediaRecorder=mr;
+  mr.ondataavailable=e=>{if(e.data&&e.data.size>0)ST.audioChunks.push(e.data);};
 
-  mr.ondataavailable = e => { if(e.data && e.data.size > 0) ST.audioChunks.push(e.data); };
-
-  mr.onstop = () => {
+  mr.onstop=()=>{
     stream.getTracks().forEach(t=>t.stop());
-    if(ST.audioChunks.length === 0) return;
-    const finalMime = mr.mimeType || mimeType || 'audio/mp4';
-    ST.audioBlob = new Blob(ST.audioChunks, { type: finalMime });
-    const reader = new FileReader();
-    reader.onload = () => { ST.audioB64 = reader.result; };
-    reader.readAsDataURL(ST.audioBlob);
+    if(ST.audioChunks.length===0)return;
+    const finalMime=mr.mimeType||mimeType||'audio/mp4';
+    // Store blob in memory only — NOT in localStorage
+    ST.audioBlob=new Blob(ST.audioChunks,{type:finalMime});
   };
 
-  mr.onerror = (e) => {
-    toast('Recording error — please try again');
-    stopRec();
-  };
+  mr.onerror=()=>{toast('Recording error — please try again');stopRec();};
 
-  // timeslice of 1000ms ensures data arrives regularly
-  try {
-    mr.start(1000);
-  } catch(err) {
-    stream.getTracks().forEach(t=>t.stop());
-    toast('Could not start recording');
-    document.getElementById('voice-state').textContent='tap to record';
-    return;
-  }
+  try{mr.start(1000);}
+  catch(err){stream.getTracks().forEach(t=>t.stop());toast('Could not start recording');document.getElementById('voice-state').textContent='tap to record';return;}
 
-  ST.recording = true;
+  ST.recording=true;
   document.getElementById('voice-orb').classList.add('recording');
-  document.getElementById('voice-state').textContent = 'recording';
-  document.getElementById('bstoprec').style.display = 'block';
-  document.getElementById('transcript-box').style.display = 'block';
+  document.getElementById('voice-state').textContent='recording';
+  document.getElementById('bstoprec').style.display='block';
+  document.getElementById('transcript-box').style.display='block';
 
-  ST.timerSecs = 0;
-  clearInterval(ST.timerInterval);
-  ST.timerInterval = setInterval(()=>{
-    ST.timerSecs++;
-    document.getElementById('voice-timer').textContent = fmtTimer(ST.timerSecs);
-  }, 1000);
+  ST.timerSecs=0;clearInterval(ST.timerInterval);
+  ST.timerInterval=setInterval(()=>{ST.timerSecs++;document.getElementById('voice-timer').textContent=fmtTimer(ST.timerSecs);},1000);
 
-  recog = setupRecog();
-  if(recog) {
-    let full = '';
-    recog.onresult = e => {
-      let interim = '';
-      for(let i=e.resultIndex; i<e.results.length; i++){
-        const t = e.results[i][0].transcript;
-        if(e.results[i].isFinal){ full += t + ' '; } else { interim += t; }
+  recog=setupRecog();
+  if(recog){
+    let full='';
+    recog.onresult=e=>{
+      let interim='';
+      for(let i=e.resultIndex;i<e.results.length;i++){
+        const t=e.results[i][0].transcript;
+        if(e.results[i].isFinal){full+=t+' ';}else{interim+=t;}
       }
-      ST.transcript = full.trim();
-      const el = document.getElementById('transcript-txt');
-      el.textContent = (full + interim) || 'Listening…';
-      el.style.color = interim ? 'var(--text3)' : 'var(--text2)';
-      el.style.fontStyle = full ? 'normal' : 'italic';
+      ST.transcript=full.trim();
+      const el=document.getElementById('transcript-txt');
+      el.textContent=(full+interim)||'Listening…';
+      el.style.color=interim?'var(--text3)':'var(--text2)';
+      el.style.fontStyle=full?'normal':'italic';
     };
-    recog.onerror = () => {};
-    recog.onend = () => { if(ST.recording) try{ recog.start(); }catch(e){} };
-    try { recog.start(); } catch(e){}
-  } else {
-    document.getElementById('transcript-txt').textContent = 'Transcription unavailable on this device';
+    recog.onerror=()=>{};
+    recog.onend=()=>{if(ST.recording)try{recog.start();}catch(e){}};
+    try{recog.start();}catch(e){}
+  }else{
+    document.getElementById('transcript-txt').textContent='Transcription unavailable on this device';
   }
 }
 
 function stopRec(){
-  ST.recording = false;
-  clearInterval(ST.timerInterval);
-  if(recog){ try{ recog.stop(); }catch(e){} recog=null; }
-  if(ST.mediaRecorder && ST.mediaRecorder.state !== 'inactive'){
-    try{ ST.mediaRecorder.stop(); }catch(e){}
-  }
+  ST.recording=false;clearInterval(ST.timerInterval);
+  if(recog){try{recog.stop();}catch(e){}recog=null;}
+  if(ST.mediaRecorder&&ST.mediaRecorder.state!=='inactive'){try{ST.mediaRecorder.stop();}catch(e){}}
   document.getElementById('voice-orb').classList.remove('recording');
-  document.getElementById('voice-state').textContent = 'recorded';
-  document.getElementById('bstoprec').style.display = 'none';
-  document.getElementById('bsavev').style.display = 'block';
+  document.getElementById('voice-state').textContent='recorded';
+  document.getElementById('bstoprec').style.display='none';
+  document.getElementById('bsavev').style.display='block';
 }
-document.getElementById('bstoprec').addEventListener('click', stopRec);
+document.getElementById('bstoprec').addEventListener('click',stopRec);
 
+// ── SAVE VOICE — upload-first, no local audio storage ──
 document.getElementById('bsavev').addEventListener('click',async()=>{
-  const btn=document.getElementById('bsavev'); btn.disabled=true;
+  const btn=document.getElementById('bsavev');btn.disabled=true;
   const ssel=document.getElementById('ss-voice');
-  ssel.textContent='Saving…'; ssel.className='save-status';
-  // Wait for FileReader to finish converting audio to base64
-  await new Promise(r=>setTimeout(r,400));
-  const en={id:Date.now(),ts:Date.now(),type:'voice',mood:ST.mood,moodLabel:ST.moodLabel,text:'',transcript:ST.transcript||'',loc:ST.vloc||null,audioB64:ST.audioB64||null,driveUrl:null,synced:false};
-  ST.entries.push(en); saveEntries(); renderEntries();
+  ssel.textContent='Saving…';ssel.className='save-status';
+
+  // Small pause to ensure mr.onstop has fired and ST.audioBlob is set
+  await new Promise(r=>setTimeout(r,350));
+
+  const en={id:Date.now(),ts:Date.now(),type:'voice',mood:ST.mood,moodLabel:ST.moodLabel,
+    text:'',transcript:ST.transcript||'',loc:ST.vloc||null,
+    driveUrl:null,synced:false};
+  // NOTE: we never put audioB64 in the entry — audio lives only in Drive
+
   if(ST.scriptUrl){
+    // Step 1: upload audio blob directly to Drive
     if(ST.audioBlob){
       ssel.textContent='Uploading audio…';
       try{
-        const ext = (ST.audioBlob.type||'').includes('mp4') ? 'm4a' : 'webm';
-        const url=await uploadAudio(ST.audioBlob,`moodlog-${en.id}.${ext}`);
-        if(url){en.driveUrl=url;saveEntries();}
+        const ext=(ST.audioBlob.type||'').includes('mp4')?'m4a':'webm';
+        const url=await uploadFileToDrive(ST.audioBlob,`moodlog-${en.id}.${ext}`);
+        if(url){en.driveUrl=url;}
+        else{ssel.textContent='Audio upload failed — saving without audio';ssel.className='save-status err';await new Promise(r=>setTimeout(r,1200));}
       }catch(e){}
     }
+    // Step 2: sync entry metadata to sheet
     ssel.textContent='Syncing…';
+    ST.entries.push(en);saveEntries();renderEntries();
     const ok=await syncEntry(en);
     if(ok){en.synced=true;saveEntries();renderEntries();ssel.textContent='✓ Saved to Google Sheets';ssel.className='save-status ok';}
-    else{ST.syncQueue.push({...en,audioB64:null});saveQueue();ssel.textContent='⚠ Saved locally — will sync when online';ssel.className='save-status err';}
-  } else {
-    ST.syncQueue.push({...en,audioB64:null}); saveQueue();
-    ssel.textContent='✓ Saved locally'; ssel.className='save-status ok';
+    else{ST.syncQueue.push({...en});saveQueue();ssel.textContent='⚠ Saved locally — will sync when online';ssel.className='save-status err';}
+  }else{
+    // No script URL: save entry without audio (can't upload without the endpoint)
+    ST.entries.push(en);saveEntries();renderEntries();
+    ST.syncQueue.push({...en});saveQueue();
+    ssel.textContent='✓ Saved locally (audio needs script URL to upload)';ssel.className='save-status ok';
   }
+
+  // Release audio blob memory
+  ST.audioBlob=null;ST.audioChunks=[];
   btn.disabled=false;
   setTimeout(()=>ss('smain'),1800);
 });
 
 // ── HABITS ──
-function renderHabits() {
+function renderHabits(){
   const list=document.getElementById('habits-list');
-  const d=new Date();
-  document.getElementById('habits-date-lbl').textContent=d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
-  const dk=today();
-  list.innerHTML='';
-  if(ST.habits.length===0){
-    list.innerHTML='<div style="color:var(--text3);font-size:14px;padding:.5rem 0">No habits yet — add one above.</div>';
-    return;
-  }
+  document.getElementById('habits-date-lbl').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+  const dk=today();list.innerHTML='';
+  if(ST.habits.length===0){list.innerHTML='<div style="color:var(--text3);font-size:14px;padding:.5rem 0">No habits yet — add one above.</div>';return;}
   ST.habits.forEach((h,i)=>{
     const done=(ST.habitLog[dk]||[]).includes(h.id);
     const streak=calcStreak(h.id);
-    const div=document.createElement('div'); div.className='habit-card';
+    const div=document.createElement('div');div.className='habit-card';
     div.innerHTML=`
-      <div class="habit-check ${done?'done':''}" data-hid="${h.id}">${done?'✓':''}</div>
-      <div class="habit-info">
-        <div class="habit-name">${esc(h.name)}</div>
-        <div class="habit-streak">🔥 ${streak} day streak</div>
-      </div>
+      <div class="habit-check ${done?'done':''}">${done?'✓':''}</div>
+      <div class="habit-info"><div class="habit-name">${esc(h.name)}</div><div class="habit-streak">🔥 ${streak} day streak</div></div>
       <div class="habit-del" data-idx="${i}">✕</div>`;
     div.querySelector('.habit-check').addEventListener('click',()=>toggleHabit(h.id));
     div.querySelector('.habit-del').addEventListener('click',()=>deleteHabit(i));
     list.appendChild(div);
   });
 }
-function calcStreak(hid) {
-  let streak=0;
-  const d=new Date();
+function calcStreak(hid){
+  let streak=0;const d=new Date();
   for(let i=0;i<365;i++){
     const k=new Date(d.getFullYear(),d.getMonth(),d.getDate()-i).toDateString();
-    if((ST.habitLog[k]||[]).includes(hid)){streak++;}
-    else if(i>0){break;}
+    if((ST.habitLog[k]||[]).includes(hid)){streak++;}else if(i>0){break;}
   }
   return streak;
 }
-function toggleHabit(hid) {
-  const dk=today();
-  if(!ST.habitLog[dk]) ST.habitLog[dk]=[];
-  const arr=ST.habitLog[dk];
-  const idx=arr.indexOf(hid);
-  if(idx>=0){arr.splice(idx,1);}else{arr.push(hid);}
-  saveHabits(); renderHabits();
-}
-function deleteHabit(idx) {
-  ST.habits.splice(idx,1); saveHabits(); renderHabits();
-}
+function toggleHabit(hid){const dk=today();if(!ST.habitLog[dk])ST.habitLog[dk]=[];const arr=ST.habitLog[dk];const idx=arr.indexOf(hid);if(idx>=0)arr.splice(idx,1);else arr.push(hid);saveHabits();renderHabits();}
+function deleteHabit(idx){ST.habits.splice(idx,1);saveHabits();renderHabits();}
 document.getElementById('bhabitadd').addEventListener('click',addHabit);
 document.getElementById('habit-input').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addHabit();}});
-function addHabit(){
-  const inp=document.getElementById('habit-input');
-  const name=inp.value.trim();
-  if(!name){toast('Enter a habit name');return;}
-  ST.habits.push({id:Date.now(),name});
-  inp.value='';
-  saveHabits(); renderHabits();
-}
+function addHabit(){const inp=document.getElementById('habit-input');const name=inp.value.trim();if(!name){toast('Enter a habit name');return;}ST.habits.push({id:Date.now(),name});inp.value='';saveHabits();renderHabits();}
 
 // ── SETTINGS ──
 document.getElementById('bsettings').addEventListener('click',()=>document.getElementById('oset').classList.add('open'));
@@ -1028,12 +999,11 @@ document.getElementById('bcloseset').addEventListener('click',()=>document.getEl
 document.getElementById('oset').addEventListener('click',e=>{if(e.target===document.getElementById('oset'))document.getElementById('oset').classList.remove('open');});
 document.getElementById('bsaveset').addEventListener('click',()=>{
   const url=document.getElementById('set-url').value.trim();
-  ST.scriptUrl=url; localStorage.setItem('ml_script_url',url);
+  ST.scriptUrl=url;localStorage.setItem('ml_script_url',url);
   document.getElementById('oset').classList.remove('open');
   toast(url?'✓ Script URL saved':'Script URL cleared');
-  if(url&&navigator.onLine) flushQueue();
+  if(url&&navigator.onLine)flushQueue();
 });
-
 document.getElementById('bviewback').addEventListener('click',()=>ss('smain'));
 
 // ── INIT ──
@@ -1045,9 +1015,7 @@ function init(){
   document.getElementById('moodval').textContent=ST.mood;
   document.getElementById('mood-label-input').value=ST.moodLabel;
   renderHabits();
-  if('serviceWorker' in navigator){
-    navigator.serviceWorker.register('./sw.js').catch(()=>{});
-  }
+  if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').catch(()=>{});}
 }
 init();
 </script>
