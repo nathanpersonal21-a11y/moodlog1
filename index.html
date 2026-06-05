@@ -624,7 +624,7 @@ async function syncEntry(en){
         type:en.type,text:en.text||'',transcript:en.transcript||'',
         timestamp:new Date(en.ts).toISOString(),
         latitude:en.loc?en.loc.lat:'',longitude:en.loc?en.loc.lon:'',accuracy:en.loc?en.loc.acc:'',
-        driveUrl:en.driveUrl||''})});
+        driveUrl:en.driveUrl||'',imageUrl:en.imageUrl||''})});
     return true;
   }catch(e){return false;}
 }
@@ -740,10 +740,12 @@ function viewEntry(idx){
   if(entry.text){const s=document.createElement('div');s.innerHTML=`<div class="view-section-title">Written text</div><div class="view-text">${esc(entry.text)}</div>`;body.appendChild(s);}
   // Transcript
   if(entry.transcript&&entry.type==='voice'){const s=document.createElement('div');s.innerHTML=`<div class="view-section-title">Transcript</div><div class="view-text">${esc(entry.transcript)}</div>`;body.appendChild(s);}
-  // Image (stored locally as b64)
-  if(entry.imgB64){
+  // Image — show local preview if available, Drive link as fallback
+  if(entry.imgB64||entry.imageUrl){
     const s=document.createElement('div');
-    s.innerHTML=`<div class="view-section-title">Photo</div><img class="view-img" src="${entry.imgB64}" alt="attached photo">`;
+    const img=entry.imgB64?`<img class="view-img" src="${entry.imgB64}" alt="attached photo" style="margin-bottom:.5rem">`:'' ;
+    const link=entry.imageUrl?`<a href="${entry.imageUrl}" target="_blank" style="color:var(--gold);font-size:13px;font-family:'DM Mono',monospace">Open in Drive ↗</a>`:'';
+    s.innerHTML=`<div class="view-section-title">Photo</div>${img}${link}`;
     body.appendChild(s);
   }
   // Drive audio link (no local b64 audio)
@@ -780,16 +782,16 @@ document.getElementById('bsavetxt').addEventListener('click',async()=>{
   const ssel=document.getElementById('ss-txt');
   ssel.textContent='Saving…';ssel.className='save-status';
   const en={id:Date.now(),ts:Date.now(),type:'text',mood:ST.mood,moodLabel:ST.moodLabel,
-    text,loc:ST.loc||null,imgB64:ST.imgB64||null,driveUrl:null,synced:false};
+    text,loc:ST.loc||null,imgB64:ST.imgB64||null,imageUrl:null,driveUrl:null,synced:false};
   ST.entries.push(en);saveEntries();renderEntries();
   if(ST.scriptUrl){
-    // Upload image to Drive if attached
+    // Upload image to Drive if attached — store URL separately from local b64
     if(ST.imgB64){
       ssel.textContent='Uploading photo…';
       try{
         const imgBlob=await(await fetch(ST.imgB64)).blob();
         const url=await uploadFileToDrive(imgBlob,`moodlog-photo-${en.id}.jpg`);
-        if(url){en.driveUrl=url;saveEntries();}
+        if(url){en.imageUrl=url;saveEntries();}
       }catch(e){}
     }
     ssel.textContent='Syncing…';
