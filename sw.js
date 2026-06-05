@@ -1,6 +1,6 @@
 // ── VERSION — change this string on every commit to force iOS to update ──
 // If you set up GitHub Actions, the workflow bumps this automatically.
-const CACHE_VERSION = 'moodlog-v20260605-2013';
+const CACHE_VERSION = 'moodlog-v20260605-2025';
 
 const STATIC_ASSETS = ['./', './index.html'];
 
